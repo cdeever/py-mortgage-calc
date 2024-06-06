@@ -1,4 +1,7 @@
-def mortgage_amortization(principal, interest_rate, term, extra_payment=1):
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+def mortgage_amortization(principal, interest_rate, term, extra_payment=1, start_date=None):
     # calculate the monthly interest rate
     monthly_rate = interest_rate / 12
     # calculate the number of payments
@@ -17,6 +20,10 @@ def mortgage_amortization(principal, interest_rate, term, extra_payment=1):
     savings = 0
     total_savings = 0
     interest = remaining_balance * monthly_rate
+
+    if start_date:
+        payment_date = datetime.strptime(start_date, "%Y-%m")
+
     # print the table header
     print("Month\tPayment\tInterest\tPrincipal\tTotal Interest\tRemaining Balance\tSavings\tTotal Savings")
     print(f"{i}\t{monthly_payment + extra_payment:.2f}\t{interest:.2f}\t{principal_paid:.2f}{total_principal_paid:.2f}\t{total_interest_paid:.2f}\t{remaining_balance:.2f}\t{savings:.2f}\t{total_savings:.2f}")    
@@ -46,10 +53,17 @@ def mortgage_amortization(principal, interest_rate, term, extra_payment=1):
         total_interest_paid += interest
         total_interest_paid_without_extra += interest_without_extra
         total_principal_paid += principal_paid
-        # print the current month's information
+
+        if start_date:
+
+        else:
+
+
+
+# print the current month's information
         print(f"{i}\t{monthly_payment + extra_payment:.2f}\t{interest:.2f}\t{principal_paid:.2f}{total_principal_paid:.2f}\t{total_interest_paid:.2f}\t{remaining_balance:.2f}\t{savings:.2f}\t{total_savings:.2f}")
     print(f"Total savings: {total_savings:.2f}")
 
 
 # test the function
-mortgage_amortization(171500, 0.0274, 15, 500)
+mortgage_amortization(171500, 0.0274, 15, 500, "2020-12")
